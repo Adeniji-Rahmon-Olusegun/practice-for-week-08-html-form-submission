@@ -65,8 +65,7 @@ const server = http.createServer((req, res) => {
       ` : "<div>No dog created yet!</div>");
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/html");
-    res.end(resBody);
-    return;
+    return res.end(resBody);
   }
 
   if (req.method === "GET" && req.url === "/cat") {
@@ -107,6 +106,19 @@ const server = http.createServer((req, res) => {
     }
 
     // Your code here
+    if (req.method === "POST" && req.url === "/cat-new") {
+      cat = req.body;
+      res.statusCode = 302;
+      res.setHeader("Location", "/")
+      return res.end();
+    }
+
+    if (req.method === "POST" && req.url === "/dog-new") {
+      dog = req.body;
+      res.statusCode = 302;
+      res.setHeader("Location", "/");
+      return res.end();
+    }
 
     res.statusCode = 404;
     res.end("Page Not Found");
